@@ -618,7 +618,7 @@
       display: block;
       border-style: none;
       border-radius: 12px;
-      left: 734px !important;
+      left: 754px !important;
       top: 22px;
       z-index: 49;
       width: 208px;
@@ -2783,14 +2783,6 @@
             style="font-weight: 400; font-family: Arial, sans-serif; font-size: 18px; color: rgb(240, 125, 0); font-style: normal;"><strong>&nbsp;</strong></span><span
             style="font-weight: 400; font-family: Arial, sans-serif; font-size: 18px; color: rgb(0, 70, 135); font-style: normal;"><strong>Our
               advisors are available 24/7 &nbsp;</strong></span></p>
-      </div><a class="lp-element lp-pom-button" id="lp-pom-button-566"
-        href="clkn/https/individualquote.msh-intl.com/client.html?_locale=en" target="_blank"><span
-          class="label"><strong>Get a quote</strong></span></a>
-      <div class="lp-element lp-pom-text nlh" id="lp-pom-text-567">
-        <p style="line-height: 22px; text-align: center;"><span
-            style="font-weight: 400; font-family: Arial, sans-serif; font-size: 24px; color: rgb(216, 78, 56); font-style: normal;"><span
-              style="font-weight: 400; font-family: Arial, sans-serif; font-style: normal;">+ 33 (0)1 44 20 48
-              77</span></span></p>
       </div>
       <div class="lp-element lp-pom-text nlh" id="lp-pom-text-569">
         <p style="line-height: 22px; text-align: center;"><span
@@ -2992,7 +2984,12 @@
 
     var backgroundCSS = { "position": "fixed", "left": "0", "top": "0px", "bottom": "auto", "width": "100%", "z-index": "899" };
     var colorOverlayCSS = { "position": "fixed", "left": "0", "top": "0px", "bottom": "auto", "width": "100%", "z-index": "auto", "border-style": "none none none none" };
-    var childrenCSS = { "position": "fixed", "left": "50%", "margin-left": "-471px", "top": "0px", "bottom": "auto", "width": "942px", "z-index": "999", "border-style": "none none none none", "border-width": "0px", "background": "none" };
+    var childrenCSS = { "position": "fixed", "left": "auto", "top": "0px", "bottom": "auto", "width": "100%", "z-index": "999", "border-style": "none none none none", "border-width": "0px", "background": "none" };
+    if (window.innerWidth > 600) {
+      childrenCSS.left = "50%";
+      childrenCSS.marginLeft = "-471px";
+      childrenCSS.width = "942px";
+    }
 
     if (headerOrFooter === 'footer') {
       backgroundCSS["top"] = 'auto';
