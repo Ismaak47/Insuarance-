@@ -566,6 +566,14 @@
             object-fit: contain;
             filter: grayscale(100%);
             transition: filter 0.3s ease;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        #lp-pom-box-702 .partner-logo {
+            display: flex !important;
+            visibility: visible !important;
         }
 
         #lp-pom-box-702 .partner-logo:hover .partner-img {
@@ -2339,6 +2347,14 @@
                 object-fit: contain;
                 filter: grayscale(100%);
                 transition: filter 0.3s ease;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+
+            #lp-pom-box-702 .partner-logo {
+                display: flex !important;
+                visibility: visible !important;
             }
 
             #lp-pom-button-566 {
@@ -2771,15 +2787,18 @@
                 <div class="partners-grid">
                     <div class="partner-logo">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flydubai_logo.svg"
-                             alt="Flydubai" class="partner-img">
+                             alt="Flydubai" class="partner-img"
+                             onerror="this.style.display='none';">
                     </div>
                     <div class="partner-logo">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Qatar_Airways_logo.svg"
-                             alt="Qatar Airways" class="partner-img">
+                             alt="Qatar Airways" class="partner-img"
+                             onerror="this.style.display='none';">
                     </div>
                     <div class="partner-logo">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/British_Airways_Logo.svg"
-                             alt="British Airways" class="partner-img">
+                             alt="British Airways" class="partner-img"
+                             onerror="this.style.display='none';">
                     </div>
                 </div>
             </div>
