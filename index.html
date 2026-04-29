@@ -2821,6 +2821,290 @@
             margin-top: 10px;
         }
 
+        /* ── Multi-Step Quote Form ── */
+        .mq-modal-content {
+            background: #fff;
+            padding: 32px 36px 28px;
+            border-radius: 16px;
+            width: 94%;
+            max-width: 560px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+        }
+        /* Progress bar */
+        .mq-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            gap: 0;
+        }
+        .mq-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex: 0 0 auto;
+        }
+        .mq-step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e8edf3;
+            color: #999;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, color 0.3s;
+        }
+        .mq-step-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #aaa;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+        .mq-connector {
+            flex: 1;
+            height: 2px;
+            background: #e8edf3;
+            margin: 0 6px;
+            margin-bottom: 22px;
+            transition: background 0.3s;
+            min-width: 20px;
+        }
+        .mq-step.active .mq-step-circle  { background: #D84E38; color: #fff; }
+        .mq-step.active .mq-step-label   { color: #D84E38; }
+        .mq-step.done  .mq-step-circle   { background: #002f5a; color: #fff; }
+        .mq-step.done  .mq-step-label    { color: #002f5a; }
+        .mq-connector.done               { background: #002f5a; }
+
+        /* Panel transition */
+        .mq-step-panel {
+            animation: mqFadeIn 0.28s ease;
+        }
+        @keyframes mqFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Title */
+        .mq-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #002f5a;
+            margin: 0 0 20px;
+        }
+
+        /* Form groups inside multi-step */
+        .mq-modal-content .form-group {
+            margin-bottom: 14px;
+            text-align: left;
+        }
+        .mq-modal-content .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #444;
+        }
+        .mq-modal-content .form-group input,
+        .mq-modal-content .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #dde1e7;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: #333;
+            background: #fff;
+            transition: border-color 0.2s;
+            appearance: auto;
+        }
+        .mq-modal-content .form-group input:focus,
+        .mq-modal-content .form-group select:focus {
+            border-color: #D84E38;
+            outline: none;
+        }
+        .mq-readonly {
+            background: #f5f7fa !important;
+            color: #666 !important;
+            cursor: default !important;
+        }
+
+        /* Phone row */
+        .mq-phone-row {
+            display: flex;
+            gap: 8px;
+        }
+        .mq-phone-code {
+            width: 130px !important;
+            flex: 0 0 130px;
+            font-size: 12px !important;
+        }
+        .mq-phone-row input {
+            flex: 1;
+        }
+
+        /* Radio group */
+        .mq-radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 4px 0;
+        }
+        .mq-radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            font-weight: 400 !important;
+            margin-bottom: 0 !important;
+        }
+        .mq-radio-label input[type="radio"] {
+            width: auto !important;
+            padding: 0 !important;
+            border: none !important;
+            accent-color: #D84E38;
+        }
+
+        /* Required / optional markers */
+        .mq-req { color: #D84E38; }
+        .mq-optional { font-size: 10px; color: #999; font-weight: 400; }
+
+        /* Inline error */
+        .mq-err {
+            font-size: 11px;
+            color: #D84E38;
+            margin-top: 4px;
+            min-height: 14px;
+        }
+        input.mq-invalid, select.mq-invalid { border-color: #D84E38 !important; }
+
+        /* Price display */
+        .mq-price-display {
+            background: linear-gradient(135deg, #002f5a 0%, #00427a 100%);
+            border-radius: 12px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 18px 0 22px;
+        }
+        .mq-price-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+        }
+        .mq-price-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Review grid */
+        .mq-review-grid {
+            border: 1.5px solid #eef0f4;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 22px;
+        }
+        .mq-review-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            border-bottom: 1px solid #f0f2f5;
+            gap: 12px;
+        }
+        .mq-review-item:last-child { border-bottom: none; }
+        .mq-review-key {
+            font-size: 11px;
+            font-weight: 600;
+            color: #888;
+            white-space: nowrap;
+        }
+        .mq-review-val {
+            font-size: 13px;
+            font-weight: 600;
+            color: #222;
+            text-align: right;
+            word-break: break-word;
+        }
+        .mq-review-total {
+            background: #f8f9fb;
+        }
+        .mq-review-price {
+            color: #D84E38;
+            font-size: 16px;
+        }
+
+        /* Navigation row */
+        .mq-nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 6px;
+        }
+        .mq-btn-next, .mq-btn-submit {
+            background: #D84E38;
+            color: #fff;
+            border: none;
+            padding: 11px 26px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+        .mq-btn-next:hover, .mq-btn-submit:hover { background: #b83a28; }
+        .mq-btn-back {
+            background: transparent;
+            color: #555;
+            border: 1.5px solid #dde1e7;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .mq-btn-back:hover { border-color: #002f5a; color: #002f5a; }
+
+        /* Success panel */
+        .mq-success {
+            text-align: center;
+            padding: 20px 0 10px;
+        }
+        .mq-success-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #002f5a;
+            color: #fff;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        .mq-success-msg {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
         @media only screen and (max-width: 600px) {
             #get-quote-section {
                 top: 2470px;
@@ -3399,10 +3683,20 @@
                             <h3>Student Travel Insurance</h3>
                             <div class="price-box">
                                 <span class="currency">$</span>
-                                <span class="amount">35.8</span>
+                                <span class="amount" id="student-price">35.8</span>
                                 <span class="period">/ year</span>
                             </div>
                             <p class="description">Essential coverage for students traveling abroad for study and work opportunities.</p>
+                            <div class="selector-group" onclick="event.stopPropagation()">
+                                <label>Duration:</label>
+                                <select id="student-duration" onchange="updateStudentPrice()">
+                                    <option value="1">1 Year</option>
+                                    <option value="2">2 Years</option>
+                                    <option value="3">3 Years</option>
+                                    <option value="4">4 Years</option>
+                                    <option value="5">5 Years</option>
+                                </select>
+                            </div>
                             <ul class="features">
                                 <li>Required before visa approval</li>
                                 <li>Global student coverage</li>
@@ -3440,32 +3734,184 @@
                 </div>
             </div>
 
-            <!-- Quote Form Modal -->
+            <!-- Multi-Step Quote Form Modal -->
             <div id="quote-modal" class="modal-overlay">
-                <div class="modal-content">
+                <div class="mq-modal-content">
                     <span class="close-modal" onclick="closeQuoteForm()">&times;</span>
-                    <h3>Request Your Quote</h3>
-                    <p id="modal-insurance-type-display"></p>
-                    <form id="quote-form" onsubmit="handleQuoteSubmit(event)">
-                        <input type="hidden" id="form-insurance-type" name="insurance_type">
+
+                    <!-- Progress Bar -->
+                    <div class="mq-progress">
+                        <div class="mq-step" id="mq-prog-1">
+                            <div class="mq-step-circle">1</div>
+                            <div class="mq-step-label">Personal Info</div>
+                        </div>
+                        <div class="mq-connector"></div>
+                        <div class="mq-step" id="mq-prog-2">
+                            <div class="mq-step-circle">2</div>
+                            <div class="mq-step-label">Travel Details</div>
+                        </div>
+                        <div class="mq-connector"></div>
+                        <div class="mq-step" id="mq-prog-3">
+                            <div class="mq-step-circle">3</div>
+                            <div class="mq-step-label">Insurance</div>
+                        </div>
+                        <div class="mq-connector"></div>
+                        <div class="mq-step" id="mq-prog-4">
+                            <div class="mq-step-circle">4</div>
+                            <div class="mq-step-label">Review</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Personal Information -->
+                    <div class="mq-step-panel" id="mq-panel-1">
+                        <h3 class="mq-title">Personal Information</h3>
                         <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="full-name" required placeholder="John Doe">
+                            <label>Full Name <span class="mq-req">*</span></label>
+                            <input type="text" id="mq-full-name" placeholder="e.g. Jean Dupont" autocomplete="name">
+                            <div class="mq-err" id="err-full-name"></div>
                         </div>
                         <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" id="email" required placeholder="john@example.com">
+                            <label>Email Address <span class="mq-req">*</span></label>
+                            <input type="email" id="mq-email" placeholder="you@example.com" autocomplete="email">
+                            <div class="mq-err" id="err-email"></div>
                         </div>
                         <div class="form-group">
-                            <label>Country</label>
-                            <input type="text" id="country" required placeholder="France">
+                            <label>Phone Number <span class="mq-req">*</span></label>
+                            <div class="mq-phone-row">
+                                <select id="mq-phone-code" class="mq-phone-code"></select>
+                                <input type="tel" id="mq-phone" placeholder="712 345 678" autocomplete="tel">
+                            </div>
+                            <div class="mq-err" id="err-phone"></div>
                         </div>
                         <div class="form-group">
-                            <label>Duration</label>
-                            <input type="text" id="form-duration" readonly>
+                            <label>Country of Residence <span class="mq-req">*</span></label>
+                            <select id="mq-country"></select>
+                            <div class="mq-err" id="err-country"></div>
                         </div>
-                        <button type="submit" class="submit-btn">Submit Request</button>
-                    </form>
+                        <div class="mq-nav-row">
+                            <span></span>
+                            <button class="mq-btn-next" onclick="mqNext(1)">Next &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Travel Details -->
+                    <div class="mq-step-panel" id="mq-panel-2" style="display:none;">
+                        <h3 class="mq-title">Travel Details</h3>
+                        <div class="form-group">
+                            <label>Destination Country <span class="mq-req">*</span></label>
+                            <select id="mq-destination"></select>
+                            <div class="mq-err" id="err-destination"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Departure Date <span class="mq-req">*</span></label>
+                            <input type="date" id="mq-depart">
+                            <div class="mq-err" id="err-depart"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Return Date <span class="mq-optional">(optional for long-term)</span></label>
+                            <input type="date" id="mq-return">
+                        </div>
+                        <div class="form-group">
+                            <label>Purpose of Travel <span class="mq-req">*</span></label>
+                            <div class="mq-radio-group">
+                                <label class="mq-radio-label"><input type="radio" name="mq-purpose" value="Employment" checked> Employment</label>
+                                <label class="mq-radio-label"><input type="radio" name="mq-purpose" value="Job Application"> Job Application</label>
+                                <label class="mq-radio-label"><input type="radio" name="mq-purpose" value="Contract Work"> Contract Work</label>
+                            </div>
+                        </div>
+                        <div class="mq-nav-row">
+                            <button class="mq-btn-back" onclick="mqBack(2)">&larr; Back</button>
+                            <button class="mq-btn-next" onclick="mqNext(2)">Next &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Insurance Details -->
+                    <div class="mq-step-panel" id="mq-panel-3" style="display:none;">
+                        <h3 class="mq-title">Insurance Details</h3>
+                        <div class="form-group">
+                            <label>Insurance Type</label>
+                            <input type="text" id="mq-ins-type" value="Employment Travel Insurance" readonly class="mq-readonly">
+                        </div>
+                        <div class="form-group">
+                            <label>Coverage Duration <span class="mq-req">*</span></label>
+                            <select id="mq-duration" onchange="mqCalcPrice()">
+                                <option value="1">1 Year</option>
+                                <option value="2">2 Years</option>
+                                <option value="3">3 Years</option>
+                                <option value="4">4 Years</option>
+                                <option value="5">5 Years</option>
+                            </select>
+                        </div>
+                        <div class="mq-price-display">
+                            <span class="mq-price-label">Estimated Premium</span>
+                            <span class="mq-price-value" id="mq-price-display">$45.70</span>
+                        </div>
+                        <div class="mq-nav-row">
+                            <button class="mq-btn-back" onclick="mqBack(3)">&larr; Back</button>
+                            <button class="mq-btn-next" onclick="mqNext(3)">Review &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Review & Submit -->
+                    <div class="mq-step-panel" id="mq-panel-4" style="display:none;">
+                        <h3 class="mq-title">Review &amp; Submit</h3>
+                        <div class="mq-review-grid">
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Full Name</span>
+                                <span class="mq-review-val" id="rv-name"></span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Email</span>
+                                <span class="mq-review-val" id="rv-email"></span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Phone</span>
+                                <span class="mq-review-val" id="rv-phone"></span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Country</span>
+                                <span class="mq-review-val" id="rv-country"></span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Destination</span>
+                                <span class="mq-review-val" id="rv-dest"></span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Departure</span>
+                                <span class="mq-review-val" id="rv-depart"></span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Purpose</span>
+                                <span class="mq-review-val" id="rv-purpose"></span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Insurance Type</span>
+                                <span class="mq-review-val">Employment Travel Insurance</span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Duration</span>
+                                <span class="mq-review-val" id="rv-duration"></span>
+                            </div>
+                            <div class="mq-review-item mq-review-total">
+                                <span class="mq-review-key">Total Premium</span>
+                                <span class="mq-review-val mq-review-price" id="rv-price"></span>
+                            </div>
+                        </div>
+                        <div class="mq-nav-row">
+                            <button class="mq-btn-back" onclick="mqBack(4)">&larr; Back</button>
+                            <button class="mq-btn-submit" onclick="mqSubmit()">Submit Request</button>
+                        </div>
+                    </div>
+
+                    <!-- Success Panel -->
+                    <div class="mq-step-panel" id="mq-panel-success" style="display:none;">
+                        <div class="mq-success">
+                            <div class="mq-success-icon">&#10003;</div>
+                            <h3 class="mq-title">Request Submitted!</h3>
+                            <p class="mq-success-msg">Thank you, <strong id="rv-success-name"></strong>. Our team will contact you at <strong id="rv-success-email"></strong> within 24 hours.</p>
+                            <button class="mq-btn-next" onclick="closeQuoteForm()" style="margin-top:16px;">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="lp-element" id="lp-pom-footer">
@@ -3659,64 +4105,261 @@
     </script>
 
     <script>
-        // Get a Quote Section Logic
+        // ── Card price updaters (unchanged) ──────────────────────────────────
         function updateEmploymentPrice() {
             const duration = document.getElementById('employment-duration').value;
             const price = (45.7 * duration).toFixed(1);
             document.getElementById('employment-price').innerText = price;
         }
-
+        function updateStudentPrice() {
+            const duration = document.getElementById('student-duration').value;
+            const price = (35.8 * duration).toFixed(1);
+            document.getElementById('student-price').innerText = price;
+        }
         function updatePersonalPrice() {
             const months = document.getElementById('personal-duration').value;
             const price = (75 * (months / 3)).toFixed(0);
             document.getElementById('personal-price').innerText = price;
         }
 
-        function openQuoteForm(type) {
-            document.getElementById('quote-modal').style.display = 'flex';
-            document.getElementById('form-insurance-type').value = type;
-            document.getElementById('modal-insurance-type-display').innerText = type + ' Travel Insurance';
-            
-            let duration = "N/A";
-            if (type === 'Employment') {
-                duration = document.getElementById('employment-duration').value + " Year(s)";
-            } else if (type === 'Student') {
-                duration = "1 Year";
-            } else if (type === 'Personal') {
-                duration = document.getElementById('personal-duration').value + " Months";
-            }
-            document.getElementById('form-duration').value = duration;
+        // ── Country / phone-code data ─────────────────────────────────────────
+        const MQ_COUNTRIES = [
+            ["Afghanistan","AF","+93"],["Albania","AL","+355"],["Algeria","DZ","+213"],
+            ["Andorra","AD","+376"],["Angola","AO","+244"],["Antigua and Barbuda","AG","+1-268"],
+            ["Argentina","AR","+54"],["Armenia","AM","+374"],["Australia","AU","+61"],
+            ["Austria","AT","+43"],["Azerbaijan","AZ","+994"],["Bahamas","BS","+1-242"],
+            ["Bahrain","BH","+973"],["Bangladesh","BD","+880"],["Barbados","BB","+1-246"],
+            ["Belarus","BY","+375"],["Belgium","BE","+32"],["Belize","BZ","+501"],
+            ["Benin","BJ","+229"],["Bhutan","BT","+975"],["Bolivia","BO","+591"],
+            ["Bosnia and Herzegovina","BA","+387"],["Botswana","BW","+267"],["Brazil","BR","+55"],
+            ["Brunei","BN","+673"],["Bulgaria","BG","+359"],["Burkina Faso","BF","+226"],
+            ["Burundi","BI","+257"],["Cabo Verde","CV","+238"],["Cambodia","KH","+855"],
+            ["Cameroon","CM","+237"],["Canada","CA","+1"],["Central African Republic","CF","+236"],
+            ["Chad","TD","+235"],["Chile","CL","+56"],["China","CN","+86"],
+            ["Colombia","CO","+57"],["Comoros","KM","+269"],["Congo (Brazzaville)","CG","+242"],
+            ["Congo (DRC)","CD","+243"],["Costa Rica","CR","+506"],["Croatia","HR","+385"],
+            ["Cuba","CU","+53"],["Cyprus","CY","+357"],["Czech Republic","CZ","+420"],
+            ["Denmark","DK","+45"],["Djibouti","DJ","+253"],["Dominica","DM","+1-767"],
+            ["Dominican Republic","DO","+1-809"],["Ecuador","EC","+593"],["Egypt","EG","+20"],
+            ["El Salvador","SV","+503"],["Equatorial Guinea","GQ","+240"],["Eritrea","ER","+291"],
+            ["Estonia","EE","+372"],["Eswatini","SZ","+268"],["Ethiopia","ET","+251"],
+            ["Fiji","FJ","+679"],["Finland","FI","+358"],["France","FR","+33"],
+            ["Gabon","GA","+241"],["Gambia","GM","+220"],["Georgia","GE","+995"],
+            ["Germany","DE","+49"],["Ghana","GH","+233"],["Greece","GR","+30"],
+            ["Grenada","GD","+1-473"],["Guatemala","GT","+502"],["Guinea","GN","+224"],
+            ["Guinea-Bissau","GW","+245"],["Guyana","GY","+592"],["Haiti","HT","+509"],
+            ["Honduras","HN","+504"],["Hungary","HU","+36"],["Iceland","IS","+354"],
+            ["India","IN","+91"],["Indonesia","ID","+62"],["Iran","IR","+98"],
+            ["Iraq","IQ","+964"],["Ireland","IE","+353"],["Israel","IL","+972"],
+            ["Italy","IT","+39"],["Jamaica","JM","+1-876"],["Japan","JP","+81"],
+            ["Jordan","JO","+962"],["Kazakhstan","KZ","+7"],["Kenya","KE","+254"],
+            ["Kiribati","KI","+686"],["Korea (North)","KP","+850"],["Korea (South)","KR","+82"],
+            ["Kosovo","XK","+383"],["Kuwait","KW","+965"],["Kyrgyzstan","KG","+996"],
+            ["Laos","LA","+856"],["Latvia","LV","+371"],["Lebanon","LB","+961"],
+            ["Lesotho","LS","+266"],["Liberia","LR","+231"],["Libya","LY","+218"],
+            ["Liechtenstein","LI","+423"],["Lithuania","LT","+370"],["Luxembourg","LU","+352"],
+            ["Madagascar","MG","+261"],["Malawi","MW","+265"],["Malaysia","MY","+60"],
+            ["Maldives","MV","+960"],["Mali","ML","+223"],["Malta","MT","+356"],
+            ["Marshall Islands","MH","+692"],["Mauritania","MR","+222"],["Mauritius","MU","+230"],
+            ["Mexico","MX","+52"],["Micronesia","FM","+691"],["Moldova","MD","+373"],
+            ["Monaco","MC","+377"],["Mongolia","MN","+976"],["Montenegro","ME","+382"],
+            ["Morocco","MA","+212"],["Mozambique","MZ","+258"],["Myanmar","MM","+95"],
+            ["Namibia","NA","+264"],["Nauru","NR","+674"],["Nepal","NP","+977"],
+            ["Netherlands","NL","+31"],["New Zealand","NZ","+64"],["Nicaragua","NI","+505"],
+            ["Niger","NE","+227"],["Nigeria","NG","+234"],["North Macedonia","MK","+389"],
+            ["Norway","NO","+47"],["Oman","OM","+968"],["Pakistan","PK","+92"],
+            ["Palau","PW","+680"],["Panama","PA","+507"],["Papua New Guinea","PG","+675"],
+            ["Paraguay","PY","+595"],["Peru","PE","+51"],["Philippines","PH","+63"],
+            ["Poland","PL","+48"],["Portugal","PT","+351"],["Qatar","QA","+974"],
+            ["Romania","RO","+40"],["Russia","RU","+7"],["Rwanda","RW","+250"],
+            ["Saint Kitts and Nevis","KN","+1-869"],["Saint Lucia","LC","+1-758"],
+            ["Saint Vincent and the Grenadines","VC","+1-784"],["Samoa","WS","+685"],
+            ["San Marino","SM","+378"],["Sao Tome and Principe","ST","+239"],
+            ["Saudi Arabia","SA","+966"],["Senegal","SN","+221"],["Serbia","RS","+381"],
+            ["Seychelles","SC","+248"],["Sierra Leone","SL","+232"],["Singapore","SG","+65"],
+            ["Slovakia","SK","+421"],["Slovenia","SI","+386"],["Solomon Islands","SB","+677"],
+            ["Somalia","SO","+252"],["South Africa","ZA","+27"],["South Sudan","SS","+211"],
+            ["Spain","ES","+34"],["Sri Lanka","LK","+94"],["Sudan","SD","+249"],
+            ["Suriname","SR","+597"],["Sweden","SE","+46"],["Switzerland","CH","+41"],
+            ["Syria","SY","+963"],["Taiwan","TW","+886"],["Tajikistan","TJ","+992"],
+            ["Tanzania","TZ","+255"],["Thailand","TH","+66"],["Timor-Leste","TL","+670"],
+            ["Togo","TG","+228"],["Tonga","TO","+676"],["Trinidad and Tobago","TT","+1-868"],
+            ["Tunisia","TN","+216"],["Turkey","TR","+90"],["Turkmenistan","TM","+993"],
+            ["Tuvalu","TV","+688"],["Uganda","UG","+256"],["Ukraine","UA","+380"],
+            ["United Arab Emirates","AE","+971"],["United Kingdom","GB","+44"],
+            ["United States","US","+1"],["Uruguay","UY","+598"],["Uzbekistan","UZ","+998"],
+            ["Vanuatu","VU","+678"],["Vatican City","VA","+39"],["Venezuela","VE","+58"],
+            ["Vietnam","VN","+84"],["Yemen","YE","+967"],["Zambia","ZM","+260"],
+            ["Zimbabwe","ZW","+263"]
+        ];
+
+        // ── Bootstrap dropdowns ───────────────────────────────────────────────
+        function mqPopulateDropdowns() {
+            const phoneCode = document.getElementById('mq-phone-code');
+            const country   = document.getElementById('mq-country');
+            const dest      = document.getElementById('mq-destination');
+
+            phoneCode.innerHTML = '';
+            country.innerHTML   = '<option value="">— Select country —</option>';
+            dest.innerHTML      = '<option value="">— Select destination —</option>';
+
+            MQ_COUNTRIES.forEach(([name, , code]) => {
+                const opt = document.createElement('option');
+                opt.value = code;
+                opt.textContent = code;
+                phoneCode.appendChild(opt);
+            });
+            // Pre-select Tanzania (+255)
+            phoneCode.value = '+255';
+
+            MQ_COUNTRIES.forEach(([name]) => {
+                const o1 = document.createElement('option');
+                o1.value = name; o1.textContent = name;
+                country.appendChild(o1);
+
+                const o2 = document.createElement('option');
+                o2.value = name; o2.textContent = name;
+                dest.appendChild(o2);
+            });
         }
 
+        // ── Step state ────────────────────────────────────────────────────────
+        let mqCurrentStep = 1;
+
+        function mqShowStep(step) {
+            [1,2,3,4,'success'].forEach(s => {
+                const p = document.getElementById('mq-panel-' + s);
+                if (p) p.style.display = 'none';
+            });
+            document.getElementById('mq-panel-' + step).style.display = 'block';
+            mqCurrentStep = step;
+
+            // Update progress circles
+            [1,2,3,4].forEach(i => {
+                const el = document.getElementById('mq-prog-' + i);
+                if (!el) return;
+                el.classList.remove('active','done');
+                if (i < step) el.classList.add('done');
+                if (i === step) el.classList.add('active');
+            });
+            // Connectors
+            document.querySelectorAll('.mq-connector').forEach((c, idx) => {
+                c.classList.toggle('done', idx + 2 <= step);
+            });
+        }
+
+        // ── Validation helpers ────────────────────────────────────────────────
+        function mqSetErr(id, msg) {
+            const el = document.getElementById('err-' + id);
+            if (el) el.textContent = msg;
+            const inp = document.getElementById('mq-' + id) ||
+                        document.getElementById('mq-' + id.replace('-',''));
+            if (inp) inp.classList.toggle('mq-invalid', !!msg);
+        }
+        function mqClearErrs(...ids) {
+            ids.forEach(id => mqSetErr(id, ''));
+        }
+
+        function mqValidateStep1() {
+            let ok = true;
+            mqClearErrs('full-name','email','phone','country');
+            const name    = document.getElementById('mq-full-name').value.trim();
+            const email   = document.getElementById('mq-email').value.trim();
+            const phone   = document.getElementById('mq-phone').value.trim();
+            const country = document.getElementById('mq-country').value;
+
+            if (!name) { mqSetErr('full-name', 'Full name is required.'); ok = false; }
+            if (!email) {
+                mqSetErr('email', 'Email is required.'); ok = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                mqSetErr('email', 'Enter a valid email address.'); ok = false;
+            }
+            if (!phone) { mqSetErr('phone', 'Phone number is required.'); ok = false; }
+            if (!country) { mqSetErr('country', 'Please select your country.'); ok = false; }
+            return ok;
+        }
+
+        function mqValidateStep2() {
+            let ok = true;
+            mqClearErrs('destination','depart');
+            const dest   = document.getElementById('mq-destination').value;
+            const depart = document.getElementById('mq-depart').value;
+            if (!dest)   { mqSetErr('destination', 'Please select a destination.'); ok = false; }
+            if (!depart) { mqSetErr('depart', 'Departure date is required.'); ok = false; }
+            return ok;
+        }
+
+        // ── Price calc ────────────────────────────────────────────────────────
+        function mqCalcPrice() {
+            const years = parseInt(document.getElementById('mq-duration').value) || 1;
+            const price = (45.7 * years).toFixed(2);
+            document.getElementById('mq-price-display').textContent = '$' + price;
+        }
+
+        // ── Navigation ────────────────────────────────────────────────────────
+        function mqNext(from) {
+            if (from === 1 && !mqValidateStep1()) return;
+            if (from === 2 && !mqValidateStep2()) return;
+            if (from === 3) {
+                mqPopulateReview();
+                mqShowStep(4);
+                return;
+            }
+            mqShowStep(from + 1);
+        }
+        function mqBack(from) {
+            mqShowStep(from - 1);
+        }
+
+        function mqPopulateReview() {
+            const phone = document.getElementById('mq-phone-code').value + ' ' +
+                          document.getElementById('mq-phone').value.trim();
+            const years = document.getElementById('mq-duration').value;
+            const price = (45.7 * parseInt(years)).toFixed(2);
+            const purpose = document.querySelector('input[name="mq-purpose"]:checked').value;
+
+            document.getElementById('rv-name').textContent    = document.getElementById('mq-full-name').value.trim();
+            document.getElementById('rv-email').textContent   = document.getElementById('mq-email').value.trim();
+            document.getElementById('rv-phone').textContent   = phone;
+            document.getElementById('rv-country').textContent = document.getElementById('mq-country').value;
+            document.getElementById('rv-dest').textContent    = document.getElementById('mq-destination').value;
+            document.getElementById('rv-depart').textContent  = document.getElementById('mq-depart').value;
+            document.getElementById('rv-purpose').textContent = purpose;
+            document.getElementById('rv-duration').textContent = years + ' Year' + (years > 1 ? 's' : '');
+            document.getElementById('rv-price').textContent   = '$' + price;
+        }
+
+        function mqSubmit() {
+            const name  = document.getElementById('mq-full-name').value.trim();
+            const email = document.getElementById('mq-email').value.trim();
+            document.getElementById('rv-success-name').textContent  = name;
+            document.getElementById('rv-success-email').textContent = email;
+            mqShowStep('success');
+        }
+
+        // ── Open / Close ──────────────────────────────────────────────────────
+        function openQuoteForm(type) {
+            mqPopulateDropdowns();
+            mqCalcPrice();
+            mqShowStep(1);
+            document.getElementById('quote-modal').style.display = 'flex';
+        }
         function closeQuoteForm() {
             document.getElementById('quote-modal').style.display = 'none';
         }
 
-        function handleQuoteSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('full-name').value;
-            const email = document.getElementById('email').value;
-            const country = document.getElementById('country').value;
-            
-            if (name && email && country) {
-                alert('Thank you, ' + name + '! Your quote request for ' + document.getElementById('form-insurance-type').value + ' has been received.');
-                closeQuoteForm();
-                document.getElementById('quote-form').reset();
-            }
-        }
+        // ── Legacy stubs (keep existing card onclick working) ─────────────────
+        function handleQuoteSubmit(e) { if (e) e.preventDefault(); }
 
-        // Smooth Scroll
+        // ── Smooth Scroll ─────────────────────────────────────────────────────
         document.addEventListener('DOMContentLoaded', function() {
             const quoteButtons = ['#lp-pom-button-605', '#lp-pom-button-627'];
             quoteButtons.forEach(id => {
-                const btns = document.querySelectorAll(id);
-                btns.forEach(btn => {
+                document.querySelectorAll(id).forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.preventDefault();
                         const section = document.getElementById('get-quote-section');
-                        if (section) {
-                            section.scrollIntoView({ behavior: 'smooth' });
-                        }
+                        if (section) section.scrollIntoView({ behavior: 'smooth' });
                     });
                 });
             });
@@ -3725,9 +4368,7 @@
         // Close modal when clicking outside
         window.addEventListener('click', function(event) {
             const modal = document.getElementById('quote-modal');
-            if (event.target == modal) {
-                closeQuoteForm();
-            }
+            if (event.target === modal) closeQuoteForm();
         });
     </script>
 
