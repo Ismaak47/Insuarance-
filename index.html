@@ -3788,6 +3788,11 @@
                             <select id="mq-country"></select>
                             <div class="mq-err" id="err-country"></div>
                         </div>
+                        <div class="form-group">
+                            <label>Passport / Travel Document Number <span class="mq-req">*</span></label>
+                            <input type="text" id="mq-passport" placeholder="e.g. A12345678" autocomplete="off" style="text-transform:uppercase;">
+                            <div class="mq-err" id="err-passport"></div>
+                        </div>
                         <div class="mq-nav-row">
                             <span></span>
                             <button class="mq-btn-next" onclick="mqNext(1)">Next &rarr;</button>
@@ -3871,6 +3876,10 @@
                             <div class="mq-review-item">
                                 <span class="mq-review-key">Country</span>
                                 <span class="mq-review-val" id="rv-country"></span>
+                            </div>
+                            <div class="mq-review-item">
+                                <span class="mq-review-key">Passport / Doc No.</span>
+                                <span class="mq-review-val" id="rv-passport"></span>
                             </div>
                             <div class="mq-review-item">
                                 <span class="mq-review-key">Destination</span>
@@ -4262,11 +4271,12 @@
 
         function mqValidateStep1() {
             let ok = true;
-            mqClearErrs('full-name','email','phone','country');
-            const name    = document.getElementById('mq-full-name').value.trim();
-            const email   = document.getElementById('mq-email').value.trim();
-            const phone   = document.getElementById('mq-phone').value.trim();
-            const country = document.getElementById('mq-country').value;
+            mqClearErrs('full-name','email','phone','country','passport');
+            const name     = document.getElementById('mq-full-name').value.trim();
+            const email    = document.getElementById('mq-email').value.trim();
+            const phone    = document.getElementById('mq-phone').value.trim();
+            const country  = document.getElementById('mq-country').value;
+            const passport = document.getElementById('mq-passport').value.trim();
 
             if (!name) { mqSetErr('full-name', 'Full name is required.'); ok = false; }
             if (!email) {
@@ -4276,6 +4286,7 @@
             }
             if (!phone) { mqSetErr('phone', 'Phone number is required.'); ok = false; }
             if (!country) { mqSetErr('country', 'Please select your country.'); ok = false; }
+            if (!passport) { mqSetErr('passport', 'Passport / travel document number is required.'); ok = false; }
             return ok;
         }
 
@@ -4318,15 +4329,16 @@
             const price = (45.7 * parseInt(years)).toFixed(2);
             const purpose = document.querySelector('input[name="mq-purpose"]:checked').value;
 
-            document.getElementById('rv-name').textContent    = document.getElementById('mq-full-name').value.trim();
-            document.getElementById('rv-email').textContent   = document.getElementById('mq-email').value.trim();
-            document.getElementById('rv-phone').textContent   = phone;
-            document.getElementById('rv-country').textContent = document.getElementById('mq-country').value;
-            document.getElementById('rv-dest').textContent    = document.getElementById('mq-destination').value;
-            document.getElementById('rv-depart').textContent  = document.getElementById('mq-depart').value;
-            document.getElementById('rv-purpose').textContent = purpose;
+            document.getElementById('rv-name').textContent     = document.getElementById('mq-full-name').value.trim();
+            document.getElementById('rv-email').textContent    = document.getElementById('mq-email').value.trim();
+            document.getElementById('rv-phone').textContent    = phone;
+            document.getElementById('rv-country').textContent  = document.getElementById('mq-country').value;
+            document.getElementById('rv-passport').textContent = document.getElementById('mq-passport').value.trim().toUpperCase();
+            document.getElementById('rv-dest').textContent     = document.getElementById('mq-destination').value;
+            document.getElementById('rv-depart').textContent   = document.getElementById('mq-depart').value;
+            document.getElementById('rv-purpose').textContent  = purpose;
             document.getElementById('rv-duration').textContent = years + ' Year' + (years > 1 ? 's' : '');
-            document.getElementById('rv-price').textContent   = '$' + price;
+            document.getElementById('rv-price').textContent    = '$' + price;
         }
 
         function mqSubmit() {
