@@ -3910,6 +3910,7 @@
                             <button class="mq-btn-back" onclick="mqBack(4)">&larr; Back</button>
                             <button class="mq-btn-submit" onclick="mqSubmit()">Submit Request</button>
                         </div>
+                        <div class="mq-err" id="mq-submit-err" style="text-align:center;margin-top:8px;"></div>
                     </div>
 
                     <!-- Success Panel -->
@@ -4131,6 +4132,14 @@
             document.getElementById('personal-price').innerText = price;
         }
 
+        // ── Active insurance type (set when modal opens) ──────────────────────
+        var mqActiveType = 'Employment'; // 'Employment' | 'Student' | 'Personal'
+        var MQ_TYPE_RATES = {
+            Employment: 45.7,
+            Student:    35.8,
+            Personal:   25.0   // Personal uses months via personal-duration; price shown per year
+        };
+
         // ── Country / phone-code data ─────────────────────────────────────────
         const MQ_COUNTRIES = [
             ["Afghanistan","AF","+93"],["Albania","AL","+355"],["Algeria","DZ","+213"],
@@ -4300,10 +4309,11 @@
             return ok;
         }
 
-        // ── Price calc ────────────────────────────────────────────────────────
+        // ── Price calc (uses active insurance type rate) ──────────────────────
         function mqCalcPrice() {
             const years = parseInt(document.getElementById('mq-duration').value) || 1;
-            const price = (45.7 * years).toFixed(2);
+            const rate  = MQ_TYPE_RATES[mqActiveType] || 45.7;
+            const price = (rate * years).toFixed(2);
             document.getElementById('mq-price-display').textContent = '$' + price;
         }
 
@@ -4323,10 +4333,15 @@
         }
 
         function mqPopulateReview() {
-            const phone = document.getElementById('mq-phone-code').value + ' ' +
-                          document.getElementById('mq-phone').value.trim();
+            var code       = document.getElementById('mq-phone-code').value;
+            var num        = document.getElementById('mq-phone').value.trim();
+            var codeDigits = code.replace(/\D/g, '');
+            var numClean   = num.replace(/^\+/, '');
+            var phone      = (numClean.indexOf(codeDigits) === 0) ? ('+' + numClean) : (code + ' ' + num);
+
             const years = document.getElementById('mq-duration').value;
-            const price = (45.7 * parseInt(years)).toFixed(2);
+            const rate  = MQ_TYPE_RATES[mqActiveType] || 45.7;
+            const price = (rate * parseInt(years)).toFixed(2);
             const purpose = document.querySelector('input[name="mq-purpose"]:checked').value;
 
             document.getElementById('rv-name').textContent     = document.getElementById('mq-full-name').value.trim();
@@ -4337,21 +4352,93 @@
             document.getElementById('rv-dest').textContent     = document.getElementById('mq-destination').value;
             document.getElementById('rv-depart').textContent   = document.getElementById('mq-depart').value;
             document.getElementById('rv-purpose').textContent  = purpose;
-            document.getElementById('rv-duration').textContent = years + ' Year' + (years > 1 ? 's' : '');
+            document.getElementById('rv-duration').textContent = years + ' Year' + (parseInt(years) > 1 ? 's' : '');
             document.getElementById('rv-price').textContent    = '$' + price;
+            // Update the static insurance-type cell in the review grid
+            var insTypeCell = document.querySelector('#mq-panel-4 .mq-review-item .mq-review-val:not([id])');
+            if (insTypeCell) insTypeCell.textContent = mqActiveType + ' Travel Insurance';
         }
 
+        // ── EmailJS submit (centralized, all three forms) ─────────────────────
         function mqSubmit() {
-            const name  = document.getElementById('mq-full-name').value.trim();
-            const email = document.getElementById('mq-email').value.trim();
-            document.getElementById('rv-success-name').textContent  = name;
-            document.getElementById('rv-success-email').textContent = email;
-            mqShowStep('success');
+            var btn = document.querySelector('#mq-panel-4 .mq-btn-submit');
+            var errEl = document.getElementById('mq-submit-err');
+
+            // Clear any previous error
+            if (errEl) errEl.textContent = '';
+
+            // Collect all form data into one params object
+            var years   = document.getElementById('mq-duration').value;
+            var rate    = MQ_TYPE_RATES[mqActiveType] || 45.7;
+            var price   = (rate * parseInt(years)).toFixed(2);
+            var purpose = document.querySelector('input[name="mq-purpose"]:checked').value;
+            var returnDate = document.getElementById('mq-return').value || 'Not specified';
+
+            var templateParams = {
+                // Form identifier — which of the three cards triggered this
+                form_name:      mqActiveType + ' Travel Insurance Quote',
+                insurance_type: mqActiveType + ' Travel Insurance',
+
+                // Step 1 — Personal Info
+                full_name:   document.getElementById('mq-full-name').value.trim(),
+                email:       document.getElementById('mq-email').value.trim(),
+                phone:       (function() {
+                    var code  = document.getElementById('mq-phone-code').value;   // e.g. "+255"
+                    var num   = document.getElementById('mq-phone').value.trim(); // user input
+                    // If user already typed the country code, don't prepend it again
+                    var codeDigits = code.replace(/\D/g, '');
+                    var numClean   = num.replace(/^\+/, '');
+                    if (numClean.indexOf(codeDigits) === 0) {
+                        return '+' + numClean;   // already contains code — use as-is
+                    }
+                    return code + ' ' + num;     // prepend code normally
+                })(),
+                country:     document.getElementById('mq-country').value,
+                passport_no: document.getElementById('mq-passport').value.trim().toUpperCase(),
+
+                // Step 2 — Travel Details
+                destination:   document.getElementById('mq-destination').value,
+                departure:     document.getElementById('mq-depart').value,
+                return_date:   returnDate,
+                purpose:       purpose,
+
+                // Step 3 — Insurance Details
+                duration:      years + ' Year' + (parseInt(years) > 1 ? 's' : ''),
+                total_premium: '$' + price
+            };
+
+            // Disable button & show loading state
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+
+            var cfg = window._ejsCfg || {};
+            emailjs.send(cfg.svc, cfg.tpl, templateParams)
+                .then(function() {
+                    // Success — show success panel
+                    document.getElementById('rv-success-name').textContent  = templateParams.full_name;
+                    document.getElementById('rv-success-email').textContent = templateParams.email;
+                    btn.disabled = false;
+                    btn.textContent = 'Submit Request';
+                    mqShowStep('success');
+                }, function(error) {
+                    // Error — show inline message, re-enable button
+                    btn.disabled = false;
+                    btn.textContent = 'Submit Request';
+                    if (errEl) {
+                        errEl.textContent = 'Submission failed. Please try again or contact us directly.';
+                    }
+                    console.error('EmailJS error:', error);
+                });
         }
 
         // ── Open / Close ──────────────────────────────────────────────────────
         function openQuoteForm(type) {
+            mqActiveType = type || 'Employment';
             mqPopulateDropdowns();
+            // Set the readonly insurance type field to the correct label
+            document.getElementById('mq-ins-type').value = mqActiveType + ' Travel Insurance';
+            // Reset duration to 1 year and recalculate price for this type
+            document.getElementById('mq-duration').value = '1';
             mqCalcPrice();
             mqShowStep(1);
             document.getElementById('quote-modal').style.display = 'flex';
@@ -4386,6 +4473,34 @@
 
     <script async src="https://builder-assets.unbounce.com/published-js/main.bundle-ef43f79.z.js"
         type="text/javascript"></script><!-- lp:insertions end body:after -->
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/69f33993214e0d1c316bf2f5/1jnf1hqpq';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            var EMAILJS_PUBLIC_KEY  = 'fspg8eNpp4MlAFol0';
+            var EMAILJS_SERVICE_ID  = 'service_5k75gcr';
+            var EMAILJS_TEMPLATE_ID = 'template_27qk5kj';
+            emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+            // Expose config globally so mqSubmit() can reach it
+            window._ejsCfg = { svc: EMAILJS_SERVICE_ID, tpl: EMAILJS_TEMPLATE_ID };
+        })();
+    </script>
 </body>
 
 </html>
